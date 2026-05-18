@@ -1,6 +1,7 @@
 """Terminal-based Snake game using curses."""
 
 import curses
+import random
 from typing import Any
 
 
@@ -45,6 +46,20 @@ def main(stdscr: Any) -> None:
     ]
     direction = DIR_RIGHT
 
+    # Food initialisation
+    def spawn_food() -> tuple[int, int]:
+        """Place food at a random grid cell not occupied by the snake."""
+        occupied = set(snake)
+        empty = [
+            (r, c)
+            for r in range(1, GRID_HEIGHT + 1)
+            for c in range(1, GRID_WIDTH + 1)
+            if (r, c) not in occupied
+        ]
+        return random.choice(empty)
+
+    food = spawn_food()
+
     # Game loop
     while True:
         # Check for quit and handle direction changes
@@ -65,10 +80,18 @@ def main(stdscr: Any) -> None:
         dr, dc = direction
         new_head = (head_r + dr, head_c + dc)
         snake.insert(0, new_head)
-        tail = snake.pop()
 
-        # Clear old tail position
-        win.addch(tail[0], tail[1], " ")
+        # Check if snake ate the food
+        if new_head == food:
+            food = spawn_food()  # New food immediately
+            # Don't pop tail — snake grows by 1
+        else:
+            tail = snake.pop()
+            # Clear old tail position
+            win.addch(tail[0], tail[1], " ")
+
+        # Render food
+        win.addch(food[0], food[1], "$")
 
         # Render snake body (cells that were the head and body)
         for r, c in snake[1:]:
