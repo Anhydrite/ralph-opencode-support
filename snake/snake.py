@@ -59,6 +59,7 @@ def main(stdscr: Any) -> None:
         return random.choice(empty)
 
     food = spawn_food()
+    score = 0
 
     # Game loop
     game_over = False
@@ -97,6 +98,7 @@ def main(stdscr: Any) -> None:
 
         # Check if snake ate the food
         if new_head == food:
+            score += 10
             food = spawn_food()  # New food immediately
             # Don't pop tail — snake grows by 1
         else:
@@ -115,6 +117,8 @@ def main(stdscr: Any) -> None:
 
         # Redraw border (in case of corruption)
         win.border(0)
+        # Display score at top-left of terminal
+        stdscr.addstr(0, 0, f"Score: {score}".ljust(max_x))
         win.refresh()
 
         curses.napms(TICK_MS)  # Tick rate
@@ -123,12 +127,13 @@ def main(stdscr: Any) -> None:
     if game_over:
         # Switch to blocking input for the message display
         win.nodelay(False)
-        msg = "Game Over!"
+        msg = f"Game Over! Final Score: {score}"
         msg_row = GRID_HEIGHT // 2 + 1
         msg_col = (GRID_WIDTH - len(msg)) // 2 + 1
         win.addstr(msg_row, msg_col, msg)
         win.refresh()
-        curses.napms(2000)
+        # Wait for any key to exit
+        win.getch()
 
 
 if __name__ == "__main__":
