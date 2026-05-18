@@ -47,10 +47,18 @@ def main(stdscr: Any) -> None:
 
     # Game loop
     while True:
-        # Check for quit
+        # Check for quit and handle direction changes
         key = win.getch()
         if key == ord("q"):
             break
+        if key == curses.KEY_UP and direction != DIR_DOWN:
+            direction = DIR_UP
+        elif key == curses.KEY_DOWN and direction != DIR_UP:
+            direction = DIR_DOWN
+        elif key == curses.KEY_LEFT and direction != DIR_RIGHT:
+            direction = DIR_LEFT
+        elif key == curses.KEY_RIGHT and direction != DIR_LEFT:
+            direction = DIR_RIGHT
 
         # Move snake: compute new head position
         head_r, head_c = snake[0]

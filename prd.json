@@ -45,7 +45,7 @@
         "python -m py_compile snake/snake.py exits with code 0"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "notes": ""
     },
     {
