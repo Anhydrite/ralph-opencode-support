@@ -1,0 +1,95 @@
+{
+  "project": "Snake Game",
+  "branchName": "ralph/snake-game",
+  "description": "Terminal-based Snake game in Python using curses library",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create project structure and curses game window",
+      "description": "As a developer, I need to set up the snake game project with a curses-based terminal window that draws a bordered game grid.",
+      "acceptanceCriteria": [
+        "Create snake/ directory with __init__.py and snake.py",
+        "snake.py initializes curses, sets up a game window with a bordered grid (minimum 20x20 cells)",
+        "Main game loop runs and refreshes the window",
+        "python -m py_compile snake/snake.py exits with code 0"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Implement snake rendering and movement",
+      "description": "As a player, the snake should be visible on the grid and move in a direction each game tick.",
+      "acceptanceCriteria": [
+        "Snake represented as a list of (row, col) segments starting at grid center",
+        "Initial length is 3 segments",
+        "Head rendered as 'O', body as 'o'",
+        "Snake moves forward one cell per game tick",
+        "The game loop runs at a fixed interval (e.g., 150ms per tick)",
+        "python -m py_compile snake/snake.py exits with code 0"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Add arrow key controls",
+      "description": "As a player, I want to change the snake's direction using arrow keys.",
+      "acceptanceCriteria": [
+        "Arrow keys (UP, DOWN, LEFT, RIGHT) change snake direction",
+        "Snake cannot reverse into itself (pressing opposite direction is ignored)",
+        "Only one direction change per game tick (no 180 on the same tick)",
+        "curses keypad mode enabled for arrow key input",
+        "python -m py_compile snake/snake.py exits with code 0"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Add food spawning and growth mechanics",
+      "description": "As a player, food should appear on the grid and the snake should grow when eating it.",
+      "acceptanceCriteria": [
+        "Food spawns at a random empty position (not on snake body)",
+        "Food rendered as a distinct character (e.g., '$')",
+        "When snake head reaches the food cell, snake grows by 1 segment",
+        "A new food spawns immediately after the previous one is eaten",
+        "python -m py_compile snake/snake.py exits with code 0"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "Add collision detection and game over",
+      "description": "As a player, the game should end when the snake hits a wall or itself.",
+      "acceptanceCriteria": [
+        "Snake head hitting the wall boundary triggers game over",
+        "Snake head hitting its own body triggers game over",
+        "Game over shows a message on screen for 2 seconds then exits",
+        "python -m py_compile snake/snake.py exits with code 0"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Add score display and game state polish",
+      "description": "As a player, I want to see my score during gameplay and on the game over screen.",
+      "acceptanceCriteria": [
+        "Score displayed at the top of the window, incremented by 10 per food eaten",
+        "Game over screen shows 'Game Over! Final Score: X'",
+        "Window exits cleanly on any key after game over",
+        "python -m py_compile snake/snake.py exits with code 0"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
