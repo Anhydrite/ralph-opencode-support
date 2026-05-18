@@ -61,6 +61,7 @@ def main(stdscr: Any) -> None:
     food = spawn_food()
 
     # Game loop
+    game_over = False
     while True:
         # Check for quit and handle direction changes
         key = win.getch()
@@ -79,7 +80,20 @@ def main(stdscr: Any) -> None:
         head_r, head_c = snake[0]
         dr, dc = direction
         new_head = (head_r + dr, head_c + dc)
-        snake.insert(0, new_head)
+
+        # Collision detection
+        # Wall collision: head outside the grid area (rows/cols 1..GRID_HEIGHT/WIDTH)
+        if not (1 <= new_head[0] <= GRID_HEIGHT and 1 <= new_head[1] <= GRID_WIDTH):
+            game_over = True
+        # Self-collision: head hits body segments that won't be removed
+        # Exclude tail from check since it will be popped on normal moves
+        elif new_head in snake[:-1]:
+            game_over = True
+        else:
+            snake.insert(0, new_head)
+
+        if game_over:
+            break
 
         # Check if snake ate the food
         if new_head == food:
@@ -104,6 +118,17 @@ def main(stdscr: Any) -> None:
         win.refresh()
 
         curses.napms(TICK_MS)  # Tick rate
+
+    # Game over screen
+    if game_over:
+        # Switch to blocking input for the message display
+        win.nodelay(False)
+        msg = "Game Over!"
+        msg_row = GRID_HEIGHT // 2 + 1
+        msg_col = (GRID_WIDTH - len(msg)) // 2 + 1
+        win.addstr(msg_row, msg_col, msg)
+        win.refresh()
+        curses.napms(2000)
 
 
 if __name__ == "__main__":
