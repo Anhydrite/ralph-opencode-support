@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Ralph is an autonomous AI agent loop that runs AI coding tools ([Amp](https://ampcode.com), [Claude Code](https://docs.anthropic.com/en/docs/claude-code), or [OpenCode](https://github.com/anthropics/opencode)) repeatedly until all PRD items are complete. Based on [Geoffrey Huntley's Ralph pattern](https://ghuntley.com/ralph/).
+Ralph is an autonomous AI agent loop that runs AI coding tools ([Amp](https://ampcode.com), [Claude Code](https://docs.anthropic.com/en/docs/claude-code), or [OpenCode](https://github.com/anomalyco/opencode)) repeatedly until all PRD items are complete. Based on [Geoffrey Huntley's Ralph pattern](https://ghuntley.com/ralph/).
 
 ## Commands
 
